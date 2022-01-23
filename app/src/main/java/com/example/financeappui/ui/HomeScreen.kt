@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -50,19 +51,19 @@ fun HomeScreen() {
                     title = "KFC",
                     date = "June 26",
                     payment = "+$2,010",
-                    iconId = R.drawable.ic_outline_lunch_dining_24
+                    iconId = R.drawable.ic_burger
                 ),
                 Transaction(
                     title = "Paypal",
                     date = "June 28",
                     payment = "+$12,010",
-                    iconId = R.drawable.ic_baseline_local_parking_24
+                    iconId = R.drawable.ic_paypal
                 ),
                 Transaction(
                     title = "Car Repair",
                     date = "Aug 12",
                     payment = "+$232,010",
-                    iconId = R.drawable.ic_outline_settings_24
+                    iconId = R.drawable.ic_car_repair
                 )
             )
         )
@@ -122,12 +123,12 @@ fun CardSection(card: BankCard) {
             .padding(vertical = 20.dp, horizontal = 15.dp)
             .clip(RoundedCornerShape(40.dp))
             .background(Purple500)
-            .aspectRatio(1.9f)
+            .aspectRatio(1.7f)
             .padding(20.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceEvenly
+            verticalArrangement = Arrangement.SpaceAround
         ) {
             //todo icon
 
@@ -232,7 +233,7 @@ fun TransactionsSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
+            .padding(start = 20.dp, bottom = 10.dp)
     ) {
         Text(text = "Recent Transactions", style = MaterialTheme.typography.h2)
 
@@ -247,4 +248,45 @@ fun TransactionsSection(
 @Composable
 fun TransactionItem(transaction: Transaction) {
     //15 dp horizontal padding, top = 15.dp
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 20.dp)
+            .clip(RoundedCornerShape(30.dp))
+            .background(DarkGrey)
+            .padding(20.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row {
+                Icon(
+                    painter = painterResource(id = transaction.iconId),
+                    contentDescription = "Icon",
+                    tint = TextWhite,
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
+                Column(
+                    modifier = Modifier.padding(start = 20.dp)
+                ) {
+                    Text(
+                        text = transaction.title,
+                        style = MaterialTheme.typography.h2.copy(
+                            fontWeight = FontWeight.Bold
+                        )
+                    )
+                    Text(
+                        text = transaction.date,
+                        color = TextWhite,
+                        style = MaterialTheme.typography.body1.copy(
+                            fontSize = 12.sp
+                        )
+                    )
+                }
+            }
+            Text(text = transaction.payment)
+        }
+    }
 }
