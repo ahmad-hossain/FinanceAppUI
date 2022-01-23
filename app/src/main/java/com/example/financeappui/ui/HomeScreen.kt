@@ -233,7 +233,7 @@ fun TransactionsSection(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 20.dp, bottom = 10.dp)
+            .padding(start = 20.dp, end = 20.dp, bottom = 10.dp)
     ) {
         Text(text = "Recent Transactions", style = MaterialTheme.typography.h2)
 
